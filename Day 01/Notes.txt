@@ -1,0 +1,57 @@
+DAY - 1: INTRODUCTION
+---------------------
+Waterfall Method
+Agile Method --> Scrum, Kanban --> JIRA, MS Teams
+
+Team member, Scrum Lead, Product Owner  --> Project (3 months)
+
+Rating based on values, Resource, Time frame --> Project --> Module --> Task --> Sub task
+
+SAFe --> Scaled Agile Framework
+
+
+
+Developers --> Code Development, Unit testing, Code Review
+
+
+Gitlab/Github --> Repository tool 
+Jenkins --> Integration tool
+
+
+
+Day 0 --> VM/Server Deployment tools --> Terraform, vRA (vRealize Automation) <-> vRO (vRealize Orchestrator)
+
+Configuration Management tools --> Ansible
+-------------------------------------------
+Day 1 --> Software/Application deployment --> Install, Config, Uninstall, Upgrade/Modify
+	  Configurations --> Users/Groups, Monitoring Config, Backup Config, AV update/Security Config, etc.,
+
+Day 2 --> Extra user addition, Windows Defender
+
+
+-----------------------------------------------------------
+Redhat --> Ansible Management Server (Master) --> Client Node/Server(10000) --> Agentless
+
+1. Ansible Core - Free version
+2. Ansible Tower - Web UI/API Support - Paid/Licensed
+3. AWX - Free Web UI
+
+Project/Company --> Google
+
+Inventory/CMDB - 10000
+----------------------
+Development Server, UAT/Testing Server, Production Server --> Application Server, DB Server, Network, Storage, Backup Servers --> Windows,Linux
+
+Wintel - 1000
+Linux - 2000
+Linux DB Server - 500
+Wintel DB - 400
+Wintel Application - 500
+
+
+Saltstack --> Agent Based --> Salt Master, Salt Minion (Agent)
+
+YAML --> Yet Another Markup Language
+
+Ad-hoc command --> Runs single command at a time.
+YAML/Playbook --> Multiple tasks/commands at a time (Repeatable tasks, conditions, etc.,)
