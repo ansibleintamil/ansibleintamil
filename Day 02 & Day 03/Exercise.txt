@@ -1,0 +1,5 @@
+1. Get any service status from the client nodes.
+2. Install apache on one of the client node
+3. Start the apache service on the same node
+4. Uninstall the apache software
+5. Check the service status on the node
