@@ -1,0 +1,81 @@
+DAY - 2: ANSIBLE IN DETAIL - INSTALLATION AND AD-HOC COMMANDS
+-------------------------------------------------------------
+
+API - Application Programming Interface
+
+APPLICATION --> ServiceNow --> https://google.service-now.com/dashboard
+
+| Interface --> API --> https://google-service-now.com/api/v2
+
+Program --> Ansible
+
+
+Ticket Example
+--------------
+
+INC000001 --> Open
+
+Wintel --> queue/group name
+
+CI --> server0001.apac.com
+
+Short Description --> Mcafee service is stopped
+
+Work notes --> Service started successfully.
+
+Status --> Closed/Completed
+
+
+1. Semi-automated solution -- partial automation (with manual intervention)
+2. Fully automated solution --> end to end automation (no manual intervention)
+
+Lab session:
+Redhat, Ubuntu --> Ansible Master server
+Redhat, Ubuntu (Linux) --> Client server (min 1)
+
+
+Installation Steps: (6.50 pm)
+
+Method – I : Install with yum
+
+wget -UvH https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+yum -y install ansible
+
+Method – II : Install using pip
+
+to install python --> 
+
+yum install python
+pip install ansible
+
+Dev | UAT/Test | Prod
+App/DB/Network
+Windows/Linux
+
+Dev [1-1000] --> reboot 5,5,5, 1000
+
+
+server01, server02.....server1000
+
+parallelism - forks 200
+
+
+DAY - 3: ANSIBLE IN DETAIL - AD-HOC COMMANDS
+--------------------------------------------
+
+ansible 
+-m  --> module
+-i  --> inventory
+-u  --> user for authentication
+--check --> whatif (what will be the result)
+-k, --ask-pass --> prompting the password
+-vvvv --> verbose
+-a --> arguments
+-f --> fork
+-b --> become user
+-s --> sudo privileges
+
+
+
+idempotency --> it won't change the system if it is already applied
+It is a property of some operations such that no matter how many times you execute them, you achieve the same result
