@@ -1,0 +1,18 @@
+--> File system handling
+    Create a file/folder
+    Copy
+    Delete
+--> Cron Jobs
+--> Script module
+--> Dicovering Facts
+
+ansible appserver -a "service sshd.service status"
+ansible all -m command -a "get-service"
+ansible allwindows -m script -a "patching.ps1"
+===================================================================
+Scripting lanuguage --> Powershell, bash shell, perl, python
+> filename
+>> filename
+===================================================================
+Ansible playbook --> yet another description language (YAML)
+File extention --> .yml or .yaml
