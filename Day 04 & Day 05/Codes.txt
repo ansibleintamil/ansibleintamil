@@ -1,0 +1,87 @@
+	ansible all -m shell -e servers='[test01,test02]' -a 'echo {{ servers }}’
+
+	m  module
+	e  extra variables
+	a  module arguments
+
+*****************************************************************************
+#To add a group on the node servers
+ansible all -m group -a "name=admin state=present“
+
+#To remove a group on the node servers
+ansible all -m group -a "name=admin state=absent“
+*****************************************************************************
+# To add users into group
+ansible devservers -m user -a "name=neopolean group=admin createhome=yes“
+*****************************************************************************
+#If we need to check a file’s permissions, MD5, or owner, use Ansible’s stat module:
+ ansible all -m stat -a "path=/etc/hosts"
+ ansible multi -m stat -a 'path=/etc/environment’
+
+#To extract only size
+ansible all -m stat -a "path=/etc/hosts" | grep -i size
+*****************************************************************************
+#File Copy (Master To Client):
+ansible all -m copy -a "src=/etc/hosts dest=/tmp/hosts“
+#(Client to Master)
+	ansible all -m fetch -a "src=/etc/hosts dest=/tmp“
+Fetch will, by default, put the /etc/hosts file from each server into a folder in the destination with the name of the host
+	ansible all -m fetch -a "src=/etc/hosts dest=/tmp/ flat=yes"
+*****************************************************************************
+#To Create a directory:
+	ansible -m file -a "dest=/tmp/test mode=644 state=directory" all
+
+#To create a empty file 
+	ansible -m file -a "path=/tmp/test/t1.txt mode=644 state=touch" all
+
+#To verify the file
+	ansible all -a "ls /tmp/test“
+
+#Add content to the file
+ansible all -m copy -a "content='This is a sample text file.' dest=/tmp/test/t1.txt“
+*****************************************************************************
+#To delete file
+ansible all -m file -a "dest=/tmp/test/t1.txt state=absent“
+
+#To delete the folder
+ansible all -m file -a "dest=/tmp/test/ state=absent"
+*****************************************************************************
+#To run a shell script on all the servers every day at 4 a.m.
+	ansible all -m cron -a "name='daily-cron-all-servers' hour=4 job='sample.sh’”
+
+#To list cron jobs
+	ansible all -a "crontab -l"
+
+#To remove cron job
+	ansible all -m cron -a "name='daily-cron-all-servers' state=absent"
+*****************************************************************************
+#Execute script
+ansible all -m script -a "sample.sh"
+ansible all -m script -a "sample.sh 123"
+ansible all -m script -a "sample.sh 123 Neo"
+*****************************************************************************
+#Facts
+ansible all -m setup
+Display facts from all hosts and store them indexed by hostname at (/tmp/facts).
+	ansible all -m setup --tree /tmp/facts
+
+Display only facts about certain interfaces.
+	 ansible all -m setup -a 'filter=ansible_eth[0-2]’
+
+   ansible -m setup devservers -a 'filter=ansible_uptime_seconds'
+*****************************************************************************
+#Sample Playbook
+
+---
+- name: install and start apache
+  hosts: webserver
+  become: yes
+  vars:
+     http_port: 80
+
+  tasks:
+  - name: httpd package is present
+    yum:
+      name: httpd
+      state: latest
+*****************************************************************************
