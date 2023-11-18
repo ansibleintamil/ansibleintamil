@@ -68,4 +68,26 @@ gather_facts: no
 ansible-playbook apache_installation.yml -e "software_name=httpd service_name=httpd"
 ####################################################################################
 
+# Alternate ways to assign option values to modules
+
+---
+ - name: "To install specified software"
+   hosts: all
+   tasks:
+   - name: "This task is to perform software  installation"
+     yum:
+      name={{ software_name }}
+      state=installed
+
+   - debug:
+       msg="{{ software_name }} installed Successfully!"
+
+   - service:
+       name={{ service_name }}
+       state=started
+
+   - debug:
+       var="{{ service_name }} Started!!"
+
+####################################################################################
 
