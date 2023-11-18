@@ -1,1 +1,14 @@
+# apache_installation.yml
+---
+ - name: "This is my first play to install apache software"
+   hosts: appserver
+   gather_facts: no
+   tasks:
+    - debug:
+        msg: "Successfully Executed!"
 
+#########################################################################
+
+ansible-playbook apache_installation.yml
+
+#########################################################################
