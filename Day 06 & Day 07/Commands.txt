@@ -30,3 +30,42 @@ ansible-playbook 1_apache_installation.yml
    - service:
        name: httpd
        state: reloaded
+
+#############################################################################
+
+To override the inventory for your specific playbooks,
+
+ansible-playbook <playbookname> -i <inventoryname>
+
+#############################################################################
+
+To avoid gathering client system information use 
+gather_facts: no
+
+#############################################################################
+# software_installation.yml
+
+---
+ - name: "To install specified software"
+   hosts: all
+   tasks:
+   - name: "This task is to perform software  installation"
+     yum: 
+      name: "{{ software_name }}"
+      state: installed
+
+   - debug:
+       msg: "{{ software_name }} installed Successfully!"
+
+   - service:
+       name: "{{ service_name }}"
+       state: started
+
+   - debug:
+       var: "{{ service_name }} Started!!"
+
+####################################################################################
+ansible-playbook apache_installation.yml -e "software_name=httpd service_name=httpd"
+####################################################################################
+
+
