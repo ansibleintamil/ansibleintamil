@@ -1,4 +1,4 @@
-# apache_installation.yml
+# 1_apache_installation.yml
 ---
  - name: "This is my first play to install apache software"
    hosts: appserver
@@ -9,6 +9,24 @@
 
 #########################################################################
 
-ansible-playbook apache_installation.yml
+ansible-playbook 1_apache_installation.yml
 
 #########################################################################
+
+---
+ - name: "This is my first play to install apache software"
+   hosts: all
+   gather_facts: no
+
+   tasks:
+   - name: "This task is to perform apache installation"
+     yum: 
+      name: http
+      state: installed
+
+   - debug:
+       msg: "Apache installed Successfully!"
+
+   - service:
+       name: httpd
+       state: reloaded
