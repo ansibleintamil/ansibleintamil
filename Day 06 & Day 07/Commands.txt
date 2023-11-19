@@ -90,4 +90,19 @@ ansible-playbook apache_installation.yml -e "software_name=httpd service_name=ht
        var="{{ service_name }} Started!!"
 
 ####################################################################################
+#Looping
 
+---
+ - name: Playbook with multiple items
+   hosts: all
+   tasks:
+   - name: Install required packages
+     yum:
+       name={{ item }}
+       state=installed
+     with_items:
+      - httpd
+      - mariadb
+      - samba
+
+####################################################################################
