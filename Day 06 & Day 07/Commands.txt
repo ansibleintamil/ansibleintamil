@@ -151,3 +151,31 @@ ansible-playbook apache_installation.yml -e "software_name=httpd service_name=ht
         name=smb  state=restarted
       listen: start service
 ####################################################################################
+
+# Import external variable files to the playbook
+
+# variable.yml
+pkg: samba
+pkg_service: smb
+
+# import_variable_file.yml
+---
+- name: variable example
+  hosts: all
+  vars_files:
+    - variable.yml
+  tasks:
+  - debug:
+      msg: 'Package Name: {{ pkg }} , Service Name: {{ pkg_service }}'
+
+  - name: install package
+    yum:
+      name={{ pkg }}
+      state=present
+
+  - name: start service
+    service:
+      name={{ pkg_service }}
+      state=started
+#################################################################################
+
