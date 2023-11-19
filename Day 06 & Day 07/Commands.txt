@@ -178,4 +178,31 @@ pkg_service: smb
       name={{ pkg_service }}
       state=started
 #################################################################################
+# register, debug examples
 
+---
+- name: variable example
+  hosts: all
+  vars_files:
+    - variable.yml
+  tasks:
+  - debug:
+      msg: "Package Name: {{ pkg }} , Service Name: {{ pkg_service }}"
+
+  - debug:
+      var: pkg, pkg_service
+
+  - name: install package
+    yum:
+      name={{ pkg }}
+      state=absent
+    register: installation_result
+
+  - debug:
+      msg: "{{ installation_result }}"
+
+  - name: start service
+    service:
+      name={{ pkg_service }}
+      state=started
+##########################################################################
