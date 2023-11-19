@@ -1,0 +1,125 @@
+DAY - 6: ANSIBLE PLAYBOOK
+-------------------------
+
+playbookname --> apache_installation.yml
+
+ansible-playbook <playbookname>
+
+
+redhat - yum, ubuntu - apt, suse
+
+method 1 - inventory level [rhel], [ubuntu]
+hosts: rhel
+
+hosts: ubuntu
+
+method 2 - task level control
+
+condition --> os=redhat ==> yum
+              os=ubuntu ==> apt
+
+tasks:
+  yum:
+  when: os="redhat"
+  apt:
+  when: os="ubuntu"
+
+
+ntp
+httpd
+
+ntp,httpd
+
+yum install ntp
+yum install httpd
+yum install ntp,httpd
+
+
+loop --> ntp,httpd, dfd,dfs,fd
+
+yum install ntp
+yum install httpd
+
+---
+- name: "This is my first play to install appache software"
+hosts: all
+vars:
+ software: httpd
+ snmp: snmp
+tasks:
+- name: "Installation {{software}}"
+yum:
+name: {{software}}
+state: present
+
+- debug:
+msg: "Installation {{software}} succesfully executed"
+
+- name: Start service , if not started
+service:
+name: httpd
+state: started
+- debug:
+msg: "{{software}} service succesfully started"
+
+- name: "Installation {{snmp}}"
+yum:
+name: {{snmp}}
+state: present
+
+- debug:
+msg: "Installation successfully executed"
+
+
+DAY - 7: ANSIBLE PLAYBOOK
+-------------------------
+
+--> become options in playbook
+--> variables
+--> looping statement (with_items)
+--> Notify & Handlers
+--> Notify, Handlers & Listeners
+
+
+ansible playbook execution options
+----------------------------------
+
+-e --> extra variables
+-i --> inventory file
+-u --> user
+-v --> verbose
+--check --> to provide the action result without execution
+-f --> fork (threshold limit)
+
+
+Looping --> Iteration
+----------------------
+
+ansible keyword --> with_items
+
+notify & handlers
+-----------------
+
+
+static string ==> 'Check httpd package is present' ==> as it is 
+dynamic string ==> 'Check {{ software }} package is present' ==> Check {{ software }} package is present
+	           "Check {{ software }} package is present" ==> Check httpd package is present 
+
+tasks:
+
+installation --> yum
+notify
+index.html --> file
+notify
+dsf
+
+handlers:
+ service start --> service
+
+jinja template
+
+
+variables --> 1. extra-vars 2. vars_files 3. vars
+
+debug -> msg, var
+register --> to store module results in a variable
