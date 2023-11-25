@@ -1,1 +1,29 @@
+root@control:~# cat task.yml
+- file:
+   name: /tmp/sample.txt
+   state: touch
+  notify: file content
+
+- command:
+    cat /tmp/sample.txt
+  register: cmd_result
+
+- debug:
+   var: cmd_result.stdout
+
+########################################################
+
+root@control:~# cat import_tasks.yml
+---
+ - hosts: all
+   tasks:
+    - import_tasks: task.yml
+   handlers:
+    - name: file content 
+      copy:
+       dest: /tmp/sample.txt
+       content: "This is a sample file." 
+
+#########################################################
+
 
