@@ -72,7 +72,7 @@ ansible-playbook passing_multiple_parameters.yml -e "package=['samba','chrony','
      - yum:
         name: "{{ package }}"
         state: absent
-       when: 'samba' not in package
+       when: "'samba' not in package"
 
 #########################################################
 # Conditional statement using loop
