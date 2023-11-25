@@ -26,4 +26,14 @@ root@control:~# cat import_tasks.yml
 
 #########################################################
 
+#importing playbooks
+root@control:~# cat import_playbook.yml
+---
+ - import_playbook: import_tasks.yml
+ - hosts: all
+   tasks:
+    - debug:
+        msg: "This is my second playbook"
+
+#########################################################
 
