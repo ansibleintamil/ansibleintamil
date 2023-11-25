@@ -91,3 +91,22 @@ ansible-playbook passing_multiple_parameters.yml -e "package=['samba','chrony','
 
 #########################################################
 
+root@control:~# cat conditional_with_facts.yml
+--- 
+ - hosts: all
+   tasks:
+     - debug:
+        var: ansible_default_ipv4.gateway, ansible_default_ipv4.address, ansible_hostname
+
+     - debug:
+        msg: "Processing hostname {{ ansible_hostname }}"
+
+#     - command: hostnamectl
+#       register: result
+#       when: ansible_os_family == "RedHat"  #"ansible_eth0.ipv4.address == '10.5.0.165'"
+     
+#     - debug: 
+#        var: result.stdout_lines
+
+#########################################################
+
