@@ -50,4 +50,15 @@ root@control:~# cat import_playbook.yml
         state: absent
 
 #########################################################
+ansible-playbook passing_multiple_parameters.yml -e "package=['samba','chrony','httpd']"
 
+---
+ - hosts: all
+   tasks:
+     - yum:
+        name: "{{ item }}"
+        state: installed
+       with_items:
+         "{{ package }}"
+
+#########################################################
