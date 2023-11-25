@@ -37,3 +37,17 @@ root@control:~# cat import_playbook.yml
 
 #########################################################
 
+#Slicing your List variable  using index ID
+
+---
+ - hosts: all
+   vars:
+      package:
+         ["samba","chrony","httpd"]
+   tasks:
+     - yum:
+        name: "{{ package[0] }}"
+        state: absent
+
+#########################################################
+
