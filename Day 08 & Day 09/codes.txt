@@ -109,4 +109,20 @@ root@control:~# cat conditional_with_facts.yml
 #        var: result.stdout_lines
 
 #########################################################
+---
+ - hosts: all
+   tasks:
+     - yum:
+         name: "{{ package }}"
+         state: absent
+       changed_when: "package == 'samba'"
+#########################################################
+---
+ - hosts: all
+   tasks:
+     - yum:
+         name: "{{ package }}"
+         state: absent
+       failed_when: "package == 'samba'"
 
+#########################################################
