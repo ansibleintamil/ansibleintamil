@@ -126,3 +126,17 @@ root@control:~# cat conditional_with_facts.yml
        failed_when: "package == 'samba'"
 
 #########################################################
+# Copy a file if it is not present on the client machines
+---
+ - hosts: all
+   tasks:
+     - stat:
+         path: /tmp/sample.txt
+       register: result
+     - debug:
+         var: result
+     - copy:
+         src: /tmp/sample.txt
+         dest: /tmp/sample1.txt
+       when: result.stat.exists == false
+###########################################################
