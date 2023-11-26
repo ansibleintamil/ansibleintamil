@@ -140,3 +140,35 @@ root@control:~# cat conditional_with_facts.yml
          dest: /tmp/sample1.txt
        when: result.stat.exists == false
 ###########################################################
+
+root@control:~# cat userlist.txt
+userlist
+--------
+user01
+user02
+user03
+user04
+user05
+
+root@control:~# cat creating_users_from_text_file.yml
+---
+ - hosts: all
+   vars:
+     input_file: "{{ lookup('file','userlist.txt') }}"
+   tasks:
+     - user:
+        name: "{{ username }}"
+        state: present
+       when: id > 1
+       loop:
+        "{{ input_file.split('\n') }}"
+       loop_control:
+         loop_var: username
+         index_var: id 
+  
+     - command: grep user /etc/passwd
+        #"cat /etc/passwd | grep user"
+       register: cmd_result
+  
+     - debug:
+        var: cmd_result.stdout_lines
