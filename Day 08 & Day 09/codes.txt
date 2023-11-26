@@ -172,3 +172,7 @@ root@control:~# cat creating_users_from_text_file.yml
   
      - debug:
         var: cmd_result.stdout_lines
+
+     - debug:
+        msg: "User List Added Successfully!"
+       when: (cmd_result.stdout_lines | count)  == 5
