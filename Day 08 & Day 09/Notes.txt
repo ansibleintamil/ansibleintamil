@@ -1,0 +1,98 @@
+DAY - 8: ANSIBLE PLAYBOOK
+-------------------------
+
+1. importing a task
+2. importing playbooks
+3. passing multiple parameters to playbook
+4. iterating multiple extra variables in a playbook
+5. conditional statement - when, failed_when, changed_when
+
+
+
+(item == samba) AND (item == ntp) ==> both supposed to be true
+(item == samba) OR (item == ntp)  ==> anyone is true then true
+
+to compare individual value use [=,!=]
+for more than one validation use [AND, OR]
+to check the value is present or not in the list use [in, not in]
+to check the variable is defined use [is defined, not defined]
+
+
+DAY - 9: ANSIBLE PLAYBOOK
+-------------------------
+
+1. Copy a file to the remote server if the file doesn't exist --> 5 mins
+
+Step 1 - Check the file existance on the Ansible Management server - /tmp/sample.txt
+Step 2 - Use Ansible module "stat" to know the file presence. Use "register: result" to store the output of stat module
+Step 3 - Use "Debug" module to print the output of stat.
+Step 4 - Check the properties from debug module - exists : true/false
+Step 5 - "Copy" -> src : dest: /tmp/sample.txt --> when: result.exists == false
+
+
+- raw:
+   diff /tmp/sample.txt /tmp/server.txt
+
+
+2. looping with options
+
+with_items, loop, loop_control
+
+dictionary --> key / value pairs
+
+{key1=value1, key2=value2} ==> {package: smtp, service: smtp}
+
+
+3. Using file as input
+
+###############################
+
+for, foreach, while, do-while ==> with_items, loop, loop_control
+if-elseif-else ==> when, failed_when, changed_when
+
+variables --> system defined variables & user defined variables
+
+ipaddress = 10.2.3.4, port = 443, servername = server133, package= samba, service = smb
+
+1,2,3,4,5,6  => "," --> delimitar
+
+split(",") ==> 
+1
+2
+3
+4
+5
+6
+
+
+name:neo:read:address:state
+
+split(":") 
+name
+neo
+read
+address
+state
+
+datatypes --> integer, float, character, string, boolean
+
+arrays/lists --> more than one string --> []
+
+
+
+user01
+user02
+user03
+
+user01\nuser02\nuser03
+
+
+ok: [10.5.1.109] => {
+    "input_file": "userlist\n--------\nuser01\nuser02\nuser03\nuser04\nuser05"
+}
+
+ok: [10.5.1.109] => {
+    "input_file.split('\\n')": [
+        "userlist\n--------\nuser01\nuser02\nuser03\nuser04\nuser05"
+    ]
+}
