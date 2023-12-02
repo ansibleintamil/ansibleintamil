@@ -1,0 +1,55 @@
+1. Windows Server as host
+2. Setup/Configurations Steps
+3. Basic Ansible Modules
+4. Limitations/Restrictions
+
+
+Windows Client Machine:
+-----------------------
+
+Your windows machine execution policy either Remote-signed or Unrestricted.
+powershell command: Get-executionpolicy
+Change execution policy using the command : Set-executionpolicy Remotesigned
+
+Check your winrm service: Get-service winrm
+start the winrm service: Start-service winrm
+
+to configure winrm use the command: winrm quick config
+
+port - 5985 (http), 5986 (https)
+
+Ansible Server:
+--------------
+
+1. check pywinrm if not present install using "pip install pywinrm"
+2. Set the below variables on the host file
+
+host vars --> host variable
+
+[windows]
+Windows10 ansible_host=192.168.0.3
+#windows2012 ansible_host=23.45.5.6
+
+[windows:vars]
+ansible_user: <windows_user>
+ansible_password: <windows_pwd>
+ansible_connection: winrm
+ansible_winrm_transport: basic
+ansible_port: 5985
+
+To validate the connectivity, use the below adhoc command:
+ansible -m win_ping windows
+
+
+windows_connectivity.yml
+
+---
+ - hosts: windows
+   tasks:
+     - win_ping:
+       ansible_user: <windows_user>
+       ansible_password: <windows_pwd>
+       ansible_connection: winrm
+       ansible_winrm_transport: basic
+       ansible_port: 5985
+ 
