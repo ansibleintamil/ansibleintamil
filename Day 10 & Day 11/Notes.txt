@@ -14,7 +14,13 @@ Change execution policy using the command : Set-executionpolicy Remotesigned
 Check your winrm service: Get-service winrm
 start the winrm service: Start-service winrm
 
-to configure winrm use the command: winrm quick config
+to configure winrm use the command:
+
+For http: 
+winrm quick config
+
+For https: 
+winrm quickconfig -transport:https
 
 port - 5985 (http), 5986 (https)
 
