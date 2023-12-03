@@ -33,29 +33,50 @@ Ansible Server:
 host vars --> host variable
 
 [windows]
-Windows10 ansible_host=192.168.0.3
-#windows2012 ansible_host=23.45.5.6
+192.168.0.3
 
 [windows:vars]
-ansible_user: <windows_user>
-ansible_password: <windows_pwd>
-ansible_connection: winrm
-ansible_winrm_transport: basic
-ansible_port: 5985
+ansible_user=windows_user
+ansible_password=windows_pwd
+ansible_connection=winrm
+ansible_winrm_transport=basic
+ansible_port=5985
 
 To validate the connectivity, use the below adhoc command:
 ansible -m win_ping windows
 
+For winrm issues for basic authentication:
+winrm get winrm/config
+winrm set winrm/config/service/auth @{Basic="true"}
+winrm set winrm/config/service @{AllowUnencryption="true"}
 
-windows_connectivity.yml
+#################################################################################
 
----
- - hosts: windows
-   tasks:
-     - win_ping:
-       ansible_user: <windows_user>
-       ansible_password: <windows_pwd>
-       ansible_connection: winrm
-       ansible_winrm_transport: basic
-       ansible_port: 5985
- 
+Ansible 2.8 has added an experimental SSH connection for Windows managed nodes.
+We can use OpenSSH to connect Window 10 clients to Windows Server 2019. 
+OpenSSH Client is available to install on Windows 10 and later. 
+OpenSSH Server is available to install on Windows Server 2019 and later.
+By default Win32-OpenSSH uses cmd.exe as a shell.
+We can use win_regedit ansible module to change the shell to powershell
+
+Installation Steps:
+https://github.com/PowerShell/Win32-OpenSSH/wiki/Install-Win32-OpenSSH
+
+Configuring Ansible for SSH on Windows, set the below connection variables
+
+ansible_connection=ssh
+ansible_shell_type=cmd or ansible_shell_type=powershell
+
+##################################################################################
+#Basic Modules for Windows
+Installing Software: win_chocolatey, win_package
+Installing Updates: win_updates, win_hotfix
+Set Up Users and Groups: win_user, win_group, win_group_membership, win_domain_user, win_domain_group
+Running Commands: raw, script, win_command, win_shell
+Scheduled Tasks: win_scheduled_task, win_scheduled_task_stat
+##################################################################################
+
+Windows Path Notations: (Recommended)
+path: "C:\\Windows\\Temp"
+
+##################################################################################
