@@ -11,7 +11,23 @@
         msg: "Playbook stopped the execution..."
 
 ###################################################################################
+# prompt - to get input from the user (interactive way of getting inputs) to process the tasks.
 
+---
+ - hosts: all
+   vars_prompt:
+     - name: software_name
+       prompt: "Enter the software name to install?"
+       private: no
+       #default: samba
 
+     - name: password
+       prompt: "Enter the password"
+       private: yes
+       confirm: yes
+
+   tasks:
+     - debug:
+         msg: "The entered software is {{ software_name }}"
 
 ###################################################################################
