@@ -32,3 +32,28 @@
        failed_when: software_name == ""
 
 ###################################################################################
+#Tags at Tasks Level
+
+---
+ - hosts: all
+   tasks:
+     - command: cat /etc/passwd
+       register: result
+       tags: get_userlist
+
+     - debug:
+        var: result.stdout_lines
+       tags: get_userlist 
+
+     - user:
+         name: arockia
+         state: present
+       tags: create_user
+
+
+ansible-playbook tags.yml --tags create_user
+ansible-playbook tags.yml --tags get_userlist
+ansible-playbook tags.yml --skip-tags create_user
+
+###################################################################################
+
