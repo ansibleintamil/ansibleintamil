@@ -24,6 +24,7 @@
      - name: password
        prompt: "Enter the password"
        private: yes
+       encrypt: sha512_crypt
        confirm: yes
 
    tasks:
