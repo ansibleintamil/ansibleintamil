@@ -86,5 +86,36 @@ ansible-playbook  playbook_tags.yml --tags listuser
 ansible-playbook  playbook_tags.yml --skip-tags listuser -e "state=present"
 ############################################################################
 
+# Ansible Vault is a feature of ansible that allows you to keep sensitive data such as passwords or keys in encrypted files, rather than as plaintext in playbooks or roles.
 
+ansible-vault create vault_variable.yml
+ansible-vault edit vault_variable.yml
+ansible-vault view vault_variable.yml
+ansible-vault rekey vault_variable.yml
+ansible-vault encrypt vault_encrypt_decrypt.yml
+ansible-vault decrypt vault_encrypt_decrypt.yml
 
+#To run playbook with vault
+ansible-playbook playbook.yml --ask-vault-pass
+###########################################################################
+
+#Log file creation - Blockinfile and Lineinfile
+
+---
+  - hosts: all
+    tasks:
+      - name: get files
+        shell:
+          ls /tmp/
+        register: validate
+
+      - name: Write results to logfile
+        blockinfile:
+          create: yes
+          path: "/tmp/Ansible/log"
+          insertafter: BOF
+          block: "{{ validate.stdout }}"
+          marker: "# {{ inventory_hostname }} {mark}"
+        delegate_to: localhost
+
+#############################################################################
