@@ -58,3 +58,33 @@ ansible-playbook tags.yml --skip-tags create_user
 
 ###################################################################################
 
+# Tags at Play level
+
+---
+ - hosts: all
+   tags: listuser
+   tasks:
+     - command: cat /etc/passwd
+       register: result
+       tags: get_userlist
+
+     - debug:
+        var: result.stdout_lines
+       tags: get_userlist 
+
+
+ - hosts: all
+   tags: useraction
+   tasks:
+     - user:
+         name: arockia
+         state: "{{ state }}"
+       tags: user_actions
+
+
+ansible-playbook  playbook_tags.yml --tags listuser
+ansible-playbook  playbook_tags.yml --skip-tags listuser -e "state=present"
+############################################################################
+
+
+
