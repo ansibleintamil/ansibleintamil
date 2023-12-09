@@ -20,7 +20,7 @@
        prompt: "Enter the software name to install?"
        private: no
        #default: samba
-
+     
      - name: password
        prompt: "Enter the password"
        private: yes
@@ -28,6 +28,7 @@
 
    tasks:
      - debug:
-         msg: "The entered software is {{ software_name }}"
+         msg: "The entered software is {{ software_name }}" 
+       failed_when: software_name == ""
 
 ###################################################################################
