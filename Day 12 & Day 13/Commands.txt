@@ -1,0 +1,17 @@
+#Wait_for module is used to delay/pause the execution of the playbook based on the timeout condition and also resource availability.
+
+---
+ - hosts: all
+   tasks:
+    - debug:
+        msg: "Playbook started running..."
+    - wait_for:
+        timeout: 100
+    - debug:
+        msg: "Playbook stopped the execution..."
+
+###################################################################################
+
+
+
+###################################################################################
