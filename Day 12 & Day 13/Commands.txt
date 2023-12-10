@@ -183,3 +183,40 @@ ansible-playbook playbook.yml --ask-vault-pass
         var: username
 
 ################################################################################
+
+# Block
+
+---
+  - hosts: all
+    tasks:
+     - block:
+        - yum:
+            name: "{{ item }}"
+            state: latest
+          with_items:
+            - httpd
+            - samba
+        - service:
+            name: smb
+            state: started
+       when: ansible_distribution != 'RedHat'
+#################################################################################
+
+---
+ - hosts: all 
+   tasks:
+    - block:
+       - name: Create the ansible deploy lock file
+         file: 
+           path: /tm/test 
+           state: touch
+      rescue:
+       - file: 
+          path: /tmp/test 
+          state: touch
+      always:
+       - name: Remove the ansible deploy lock file
+         file: 
+           path: /tmp/test 
+           state: absent
+####################################################################################
