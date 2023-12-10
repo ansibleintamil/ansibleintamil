@@ -153,3 +153,19 @@ ansible-playbook playbook.yml --ask-vault-pass
 
 ###############################################################################
 
+# Sending an email
+
+---
+ - hosts: localhost
+   tasks:
+   - name: Sending an e-mail using Gmail SMTP servers
+     mail:
+      host: smtp.gmail.com
+      port: 587
+      username: nepolean
+      to: nepolean@gmail.com
+      subject: Ansible-report
+      body: System {{ ansible_hostname }} has been successfully provisioned.
+     delegate_to: localhost
+
+###############################################################################
