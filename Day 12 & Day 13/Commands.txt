@@ -134,4 +134,22 @@ ansible-playbook playbook.yml --ask-vault-pass
      - debug:
          var: password
 ##############################################################################
+# API Management
+---
+ - hosts: localhost
+   tasks:
+     - uri:
+        url: "https://reqres.in/api/users?page=1"
+        method: GET
+       register: result
+
+     - debug:
+         msg: "{{ result | json_query('json.data[*].email') }}, {{ result | json_query('json.data[*].first_name') }}"
+
+#     - debug:
+#         msg: "{{ item.email }}"
+#       with_items:
+#         - "{{ result.json.data }}"
+
+###############################################################################
 
