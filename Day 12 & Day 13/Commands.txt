@@ -119,3 +119,19 @@ ansible-playbook playbook.yml --ask-vault-pass
         delegate_to: localhost
 
 #############################################################################
+#Pre-tasks with assert module used to validate the user inputs.
+
+---
+ - hosts: all
+   vars_prompt:
+     - name: password
+       prompt: "Enter the application password"
+       private: yes
+   pre_tasks:
+     - assert:
+        that: password | length > 8
+   tasks:
+     - debug:
+         var: password
+##############################################################################
+
