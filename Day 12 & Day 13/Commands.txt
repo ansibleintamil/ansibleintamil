@@ -171,3 +171,15 @@ ansible-playbook playbook.yml --ask-vault-pass
 
 ###############################################################################
 
+# Jinga2 template
+
+---
+ - hosts: all
+   tasks:
+    - set_fact:
+       # username:  "{{ 'arockia' if ( inventory_hostname == '10.5.0.136') else 'kumar' }}"
+        username: "{% if inventory_hostname == 'localhost' %}arockia{% elif inventory_hostname == '10.5.0.136' %}kumar{% endif %}"
+    - debug:
+        var: username
+
+################################################################################
