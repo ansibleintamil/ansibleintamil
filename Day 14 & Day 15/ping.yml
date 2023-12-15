@@ -1,9 +1,0 @@
----
- - hosts: all
-   tasks:
-    - debug:
-       msg: "Sample playbook executing from Ansible Tower"
-    - ping:
-      register: result
-    - debug:
-        var: result
