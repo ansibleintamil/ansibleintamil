@@ -6,4 +6,4 @@
     - ping:
       register: result
     - debug:
-        var: result.stdout
+        var: result
