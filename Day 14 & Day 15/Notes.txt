@@ -1,0 +1,12 @@
+# To create/initiate new role using the below command
+
+ansible-galaxy init rolename
+
+# Install roles from online (https://galaxy.ansible.com)
+ansible-galaxy role install <rolename>
+
+# We can do it offline using
+ansible-galaxy role install <rolename> --offline
+
+
+
