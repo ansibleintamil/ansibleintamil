@@ -8,5 +8,132 @@ ansible-galaxy role install <rolename>
 # We can do it offline using
 ansible-galaxy role install <rolename> --offline
 
+Day - 14
+--------
 
+Playbook --> hosts, tasks, variables, handlers, meta info (data about data), files
+
+OOPS --> Encapsulation --> Code Re-usability
+
+
+Ansible Roles --> 
+Ansible Galaxy -->
+AWX --> community platform 
+Ansible Tower Basics --> Redhat case
+
+
+hosts:
+vars:
+tasks:
+handlers:
+files: (.txt,.csv, .conf, .j2)
+
+
+1 - 100 - nodes --> 20000$
+101 - 1000 - nodes --> 40000$
+1001 - 2000 
+
+ansible tower lab creds
+------------------------
+admin
+ansible123!
+
+
+Ansible Tower --> Dev/UAT, Prod
+
+Authentication Levels --> System administrator, Administrator, User, System Audit
+
+Windows
+  --> Service Start.yml
+  --> Install application.yml
+  --> Patching.yml
+
+/var/logs/ansible.log
+
+
+Day - 15
+--------
+
+Ansible Tower in Detail
+
+Template --> Job, Workflow
+
+Document: 
+
+Ansible Modules --> https://docs.ansible.com/ansible/latest/
+
+https://10.45.4.5
+https://tower.apac.com
+
+https://10.45.4.5/api
+https://tower.apac.com/api/v2/job_template=112
+
+
+- hosts:
+  vars:
+  pre_tasks: 
+  tasks:
+    block:
+      command: whoami 
+      register: whoisexecuting
+      command: date
+      register: currentdate
+      1. validate your inputs
+      2. debug: 
+         failed_when: password > 8
+      3. command: 
+           name: ansible
+           status: present/absent
+         register: result
+      4. blockinfile:
+           file: logresult.log
+           content: 
+                Executed By: "{{ whoisexecuting }}"
+                Date & Time: "{{ currentdate }}"
+		Step1 - Apache Installation - Success
+         when: result.rc == 0
+      4. 
+         file:
+         service:
+
+        mail:
+          to: 
+          attach: logresult.log
+      
+    rescue:
+      debug: "Check your input"
+       blockinfile:
+           file: logresult.log
+           content: 
+	     Step1 - Installation - Failed
+       result.rc == 1
+       mail:
+          to: 
+          attach: logresult.log
+          subject: "Job is - Failed"
+    always: 
+
+
+
+Validate your alerts/tickets
+Remediation/Troubleshooting
+Mail/Log
+
+Powershell/PowerCLI
+
+script:
+  connect-viserver 10.3.4.6
+  get-vm devvm001
+  
+###########################
+
+Log output
+
+Step1 - Installation - Success/Fail
+Step2 - Config File Update - Success
+
+Day1 - Windows
+Day1 - Linux
+Day2 - Windows
+Day2 - Linux
 
