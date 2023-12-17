@@ -1,0 +1,13 @@
+---
+ - hosts: all
+   tasks:
+     - debug:
+         msg: "Running from Ansible Tower/Controller"
+
+     - yum:
+         name: samba
+         state: present
+       register: result
+
+      - debug:
+          msg: result
