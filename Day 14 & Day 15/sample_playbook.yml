@@ -4,9 +4,7 @@
      - debug:
          msg: "Running from Ansible Tower/Controller"
 
-     - yum:
-         name: httpd
-         state: present
+     - command: hostnamectl
        register: result
 
      - debug:
