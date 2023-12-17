@@ -5,7 +5,7 @@
          msg: "Running from Ansible Tower/Controller"
 
      - yum:
-         name: samba
+         name: httpd
          state: present
        register: result
 
